@@ -5,6 +5,8 @@ import EditTodo from "./EditTodo";
 function ListTodos() {
 	const [todos, setTodos] = useState([]);
 
+	console.log(todos);
+
 	// Delete todo function
 
 	const deleteTodo = async (id) => {
@@ -12,7 +14,7 @@ function ListTodos() {
 			const deleteTodo = await fetch(`/todos/${id}`, {
 				method: "DELETE",
 			});
-			setTodos(todos.filter((todo) => todo.todo_id !== id));
+			setTodos(todos.filter((todo) => todo._id !== id));
 		} catch (err) {
 			console.error(err.message);
 		}
@@ -45,15 +47,15 @@ function ListTodos() {
 				<tbody>
 					{todos.map((todo) => {
 						return (
-							<tr key={todo.todo_id}>
-								<td>{todo.description}</td>
+							<tr key={todo._id}>
+								<td>{todo.text}</td>
 								<td>
 									<EditTodo todo={todo} />
 								</td>
 								<td>
 									<button
 										className="btn btn-danger"
-										onClick={() => deleteTodo(todo.todo_id)}
+										onClick={() => deleteTodo(todo._id)}
 									>
 										Delete
 									</button>
